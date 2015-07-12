@@ -1,0 +1,313 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Travel Agency Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css" />
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="stylesheet" type="text/css" href="Styles/dmxNotify.css" />
+<script type="text/javascript" src="ScriptLibrary/jquery-latest.pack.js"></script><script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script><script type="text/javascript" src="ScriptLibrary/dmxGoogleMaps.js"></script>
+<script type="text/javascript">
+function dmxGoogleMapsAction(playerName, actionName, extraInfo) { // v1.20
+  var theMap = jQuery('#'+playerName);
+  if (theMap && theMap.gMap) {
+   	var gm = theMap.data("gmap"); 
+    switch (actionName) {
+      case 'addMarker' :
+        theMap.gMap('addMarker', extraInfo); 
+		    break;
+      case 'gotoMarker' :
+      case 'panToMarker' :
+        if (extraInfo && extraInfo.key) {
+	    	  var theMarker = theMap.gMap('getMarker', extraInfo.key); 
+	    	  if (theMarker) {
+	          var center = theMarker.getPosition();
+	          if (actionName == 'panToMarker') gm.gmap.panTo(center)
+	          else gm.gmap.setCenter(center);
+	        }
+	      }
+		    break;		
+			case 'showInfoWindow' :
+			  if (extraInfo && extraInfo.key) {
+				  var theMarker = theMap.gMap('getMarker', extraInfo.key);
+				  if (theMarker) {
+				    google.maps.event.trigger(theMarker, 'click');
+				  }
+			  }
+			  break;			
+		  case 'resizeMapSmooth' :	
+		    theMap.gMap('fixAfterResize');
+			  break;
+		  case 'resizeMapDirectly' :		
+		    theMap.gMap('fixAfterResize', true);
+		    break;
+		  case 'setCenter':
+		  case 'panTo':
+			  var $googlemaps = google.maps, $geocoder = new $googlemaps.Geocoder();			
+        if (extraInfo.latitude && extraInfo.longitude) {
+          // lat & lng available, return
+          var center = new $googlemaps.LatLng(extraInfo.latitude, extraInfo.longitude);
+          if (actionName == 'panTo') gm.gmap.panTo(center)
+          else gm.gmap.setCenter(center);
+          return;
+        } else {
+	        // Check for address to center on
+	        if (extraInfo.address) {
+	          // Get coordinates for given address and center the map
+	          $geocoder.geocode(
+		          {address: extraInfo.address},
+		          function(result, status) {
+	              if (status === google.maps.GeocoderStatus.OK) {
+	              	if (actionName == 'panTo') gm.gmap.panTo(result[0].geometry.location);
+	              	else gm.gmap.setCenter(result[0].geometry.location);
+	              }
+		      	});
+	        }
+        }			
+				break;
+      case 'removeAllMarkers' : theMap.gMap('removeAllMarkers'); break;
+      case 'panBy' : gm.gmap.panBy(extraInfo.X,extraInfo.Y); break;
+      case 'setZoom' : gm.gmap.setZoom(parseInt(extraInfo.zoom)); break;
+      case 'setMapType' : gm.gmap.setMapTypeId(extraInfo.mapType); break;
+    }
+  }  
+}
+function dmxNotifyAction() {   //ver 1.00
+  if (arguments && arguments.length > 0) {
+    if(typeof arguments[0] == 'object'){
+      jQuery.dmxNotify(arguments[0]);
+    }else if(arguments[0] === 'closeAll'){
+       jQuery.dmxNotify.closeAll();
+    }
+  }
+}
+</script>
+<script type="text/javascript" src="ScriptLibrary/dmxNotify.js"></script>
+<script type="text/javascript" src="ScriptLibrary/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="ScriptLibrary/jquery.bgiframe.min.js"></script>
+<link rel="stylesheet" type="text/css" href="ScriptLibrary/autocomplete.css" />
+</head>
+
+<body onload="dmxNotifyAction({&quot;positionClass&quot;: &quot;toast-top-left&quot;, &quot;title&quot;: &quot;Facebook Discount Code&quot;, &quot;msg&quot;: &quot; Like us on Facebook today and get additional discount!&quot;, &quot;extendedTimeOut&quot;: 2000, &quot;tapToDismiss&quot;: false})">
+<nav>
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container"> 
+        
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content --> 
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
+        
+        <!-- Be sure to leave the brand out there if you want it shown --> 
+        <a class="brand" href="#">Travel Company</a> 
+        
+        <!-- Everything you want hidden at 940px or less, place within here -->
+        <div class="nav-collapse collapse"> 
+          <!-- .nav, .navbar-search, .navbar-form, etc -->
+          <ul class="nav">
+            <li><a href="index.html">Home</a> </li>
+            <li><a href="destination.html">Destinations</a></li>
+            <li class="active"><a href="search.html">Search</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<header class="hidden-phone inner"></header>
+<div class="container" id="main">
+  <div class="row">
+    <div class="span12">
+      <h1 class="text-left">Hotel Booking</h1>
+      <p class="lead text-error text-left">Find a hotel for your vacation </p>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom:30px;">
+    <div class="span3">
+      <label for="select">Destination:</label>
+      <input name="autocomplete1" id="autocomplete1" type="text" value />
+<script type='text/javascript'>
+jQuery(document).ready(
+function() {
+jQuery('#autocomplete1').autocomplete('GoogleAjax',
+{
+	opacity : .7,
+	delay : 100,
+	minChars : 3,
+	useMap : 'map1',
+	fxShow : { type:'slide' },
+	fxHide : { type:'slide' }
+
+})});
+</script>
+      
+    </div>
+    <div class="span3">
+      <label for="select2">Category:</label>
+      <select name="select2" id="select2">
+        <option>5 Star Hotels</option>
+        <option>4 Star Hotels</option>
+        <option>3 Star Hotels</option>
+        <option>2 Star Hotels</option>
+    </select></div>
+    <div class="span6">
+    </div>
+  </div>
+  <div class="row">
+  <div class="span4 offer">
+    	<div class="offer-wrap">
+   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
+        <span class="label label-success">
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star icon-white"></i>
+        </span>
+        <div class="btn-group">
+          <button class="btn btn-small btn-success" type="button">Book Now</button>
+            <button class="btn btn-small" type="button"><em class="icon-info-sign"></em></button>
+          </div>
+        <div class="padding">
+        <h2 class="text-center text-info">Hotel Name</h2>
+          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
+        </div>
+        </div>
+    </div>
+    <div class="span4 offer">
+    	<div class="offer-wrap">
+   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
+        <span class="label label-success">
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star-empty icon-white"></i>
+        <i class="icon-white icon-star-empty"></i>
+        </span>
+        <div class="btn-group">
+          <button class="btn btn-small btn-success" type="button">Book Now</button>
+            <button class="btn btn-small" type="button"><em class="icon-info-sign"></em></button>
+          </div>
+        <div class="padding">
+        <h2 class="text-center text-info">Hotel Name</h2>
+          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
+        </div>
+        </div>
+    </div>
+    <div class="span4 offer">
+    	<div class="offer-wrap">
+   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
+        <span class="label label-success">
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star icon-white"></i>
+        <i class="icon-star-empty icon-white"></i>
+        <i class="icon-white icon-star-empty"></i>
+        </span>
+        <div class="btn-group">
+          <button class="btn btn-small btn-success" type="button">Book Now</button>
+            <button class="btn btn-small" type="button"><em class="icon-info-sign"></em></button>
+          </div>
+        <div class="padding">
+        <h2 class="text-center text-info">Hotel Name</h2>
+          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>
+<section class="location hidden-phone">
+  <div class="dmxGoogleMaps" id="map1" style="width:100%;height:400px;">
+</div>
+<script type="text/javascript">
+  // <![CDATA[
+ jQuery(document).ready(
+   function()
+     {
+       jQuery("#map1").dmxGoogleMaps(
+         {"width": "100%", "zoom": 11, "markers": [{"address": "Santorini, Greece", "key": "2"}, {"address": "Zanzibar", "key": "3"}, {"address": "Mauritius", "key": "4"}, {"address": "Corfu, Greece", "key": "1"}], "scrollwheel": false}
+       );
+     }
+ );
+  // ]]>
+</script>
+</section>
+<footer class="hidden-phone">
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <address>
+        <strong>USA</strong><br />
+        795 Folsom Ave, Suite 600<br />
+        San Francisco, CA 94107<br />
+        <i class="icon-white icon-signal"></i> (123) 456-7890<br />
+        <i class="icon-envelope icon-white"></i> mail@mailboxdomain.com
+        </address>
+      </div>
+      <div class="span3">
+        <address>
+        <strong>AUSTRALIA</strong> <br />
+        22 Thyme Avenue<br />
+        Back Plains, QLD 4361<br />
+        <i class="icon-white icon-signal"></i> (123) 456-7890<br />
+        <i class="icon-envelope icon-white"></i> mail@mailboxdomain.com
+        </address>
+      </div>
+      <div class="span3">
+        <address>
+        <strong>CANADA</strong> <br />
+        3473 Reserve St<br />
+        Stirling, ON K0K 3E0 <br />
+        <i class="icon-white icon-signal"></i> (123) 456-7890<br />
+        <i class="icon-envelope icon-white"></i> mail@mailboxdomain.com
+        </address>
+      </div>
+      <div class="span3">
+        <address>
+        <strong>GERMANY</strong><br />
+        Buelowstrasse 48<br />
+        56729 Langscheid <br />
+        <i class="icon-white icon-signal"></i> (123) 456-7890<br />
+        <i class="icon-envelope icon-white"></i> mail@mailboxdomain.com
+        </address>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12" id="footer-bottom">
+        <div class="row">
+          <div class="span6 text-left" id="footer-left">
+            <p>Copyright © 2013 Your Travel Company Name. All rights reserved.</p>
+          </div>
+          <div class="span6 text-right" id="footer-right">
+            <p>Terms and conditions</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="visible-phone footer-phone">
+  <div class="container">
+    <div class="row">
+      <div class="span12 text-center">
+        <address>
+        <strong>USA</strong><br />
+        795 Folsom Ave, Suite 600<br />
+        San Francisco, CA 94107<br />
+        <i class="icon-white icon-signal"></i> (123) 456-7890<br />
+        <i class="icon-envelope icon-white"></i> mail@mailboxdomain.com
+        </address>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
