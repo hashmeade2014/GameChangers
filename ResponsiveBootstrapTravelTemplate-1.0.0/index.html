@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Travel Agency Website</title>
+<title>USA2SA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
@@ -26,15 +26,28 @@
         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
         
         <!-- Be sure to leave the brand out there if you want it shown --> 
-        <a class="brand" href="#">Travel Company</a> 
+        <a class="brand" href="#">USA2SA</a> 
         
         <!-- Everything you want hidden at 940px or less, place within here -->
         <div class="nav-collapse collapse"> 
           <!-- .nav, .navbar-search, .navbar-form, etc -->
           <ul class="nav">
             <li class="active"> <a href="index.html">Home</a> </li>
-            <li><a href="destination.html">Destinations</a></li>
-            <li><a href="search.html">Search</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Locations</a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Eastern Cape</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Free State</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gauteng</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Kwazulu-Natal</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Catergories</a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Music</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Shopping</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Restaurants</a></li>
+                </ul>
+            </li>
             <li><a href="#">Contact</a></li>
           </ul>
         </div>
@@ -43,19 +56,19 @@
   </div>
 </nav>
 <header class="hidden-phone">
-  <h2 class="header-title">Lorem ipsum dolor</h2>
+  <h2 class="header-title">South Africa</h2>
 </header>
 <div class="container" id="main">
   <div class="row">
     <div class="span12">
-      <h1 class="text-center">HOME PAGE HEADING</h1>
+      <h1 class="text-center">Popular Attractions</h1>
       <p class="lead text-error text-center">Home page subheading</p>
     </div>
   </div>
   <div class="row">
     <div class="span4 offer">
     	<div class="offer-wrap">
-   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
+   	    <img src="./Pictures/CapeTown.jpg" alt="140x140" />
         <span class="label label-success">Label</span>
         <div class="btn-group">
             <button class="btn btn-small" type="button"><em class="icon-info-sign"></em></button>
@@ -63,7 +76,7 @@
             <button class="btn btn-small" type="button"><em class="icon-camera"></em></button>
           </div>
         <div class="padding">
-        <h2 class="text-center text-info">Destination</h2>
+        <h2 class="text-center text-info">Cape Town</h2>
           <h4 class="text-center">Lorem ipsum dolor <span class="badge badge-important">15%</span></h4>        
         </div>
         </div>

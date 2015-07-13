@@ -12,7 +12,8 @@ header {
 	height: 460px;
 	position: relative;
 	width: 100%;
-	background: url(http://www.placehold.it/1600x500/f5f5f5/bbb&text=Header) top center no-repeat #f5f5f5;
+	background: url(../Pictures/HompagePic.jpg);
+    background-size: 100% 100%;
 }
 header.inner {
 	height: 250px;
