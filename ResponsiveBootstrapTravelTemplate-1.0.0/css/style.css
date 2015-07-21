@@ -106,9 +106,14 @@ h2.hotel-name .label, h2.hotel-name .badge {
 	vertical-align:middle;
 	font-weight:400;
 }
-.dmxGoogleMaps img {
-	max-width:none !important;
-}
 .location {
 	border-top:1px solid #eee;
+}
+
+
+
+
+/* CHANGES MADE */
+h3{
+    text-align: center;
 }
